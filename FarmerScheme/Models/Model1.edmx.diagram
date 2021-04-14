@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2fd719f6cf784635975199a5a6b187cf" Name="Diagram1">
+        <EntityTypeShape EntityType="FarmerSchemeModel.admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.bid_history" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.crop_information" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.crop" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.insurance" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.insurance_claim" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.land_details" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.transaction_history" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FarmerSchemeModel.user_information" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="FarmerSchemeModel.bid_id_fk_t6" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.request_id_fk_t5" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.userid_fk_t5" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.crop_id_fk_t4" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.crop_id_fk_t7" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.request_id_fk_t6" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.userid_fk_t4" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.land_id_fk_t7" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.policy_id_fk_t8" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.userid_fk_t7" ManuallyRouted="false" />
+        <AssociationConnector Association="FarmerSchemeModel.userid_fk_t2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
