@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FarmerSchemeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="bid_history">
+    <Key>
+      <PropertyRef Name="bid_id" />
+    </Key>
+    <Property Name="bid_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="request_id" Type="int" />
+    <Property Name="userid" Type="int" />
+    <Property Name="amount" Type="int" />
+    <Property Name="bidding_time" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="crop_information">
+    <Key>
+      <PropertyRef Name="crop_id" />
+    </Key>
+    <Property Name="crop_id" Type="int" Nullable="false" />
+    <Property Name="crop_name" Type="varchar" MaxLength="15" />
+    <Property Name="crop_type" Type="varchar" MaxLength="15" />
+    <Property Name="msp" Type="int" />
+    <Property Name="farmer_share_percent" Type="int" />
+    <Property Name="actual_rate" Type="int" />
+    <Property Name="sum_insured_per_hectare" Type="int" />
+  </EntityType>
+  <EntityType Name="crops">
+    <Key>
+      <PropertyRef Name="request_id" />
+    </Key>
+    <Property Name="request_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="crop_id" Type="int" />
+    <Property Name="fertilizer_type" Type="varchar" MaxLength="20" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="base_price" Type="int" />
+    <Property Name="crop_approval_status" Type="bit" Nullable="false" />
+    <Property Name="bid_approval_status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="insurance">
+    <Key>
+      <PropertyRef Name="policy_no" />
+    </Key>
+    <Property Name="policy_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="land_id" Type="int" />
+    <Property Name="season" Type="varchar" MaxLength="10" />
+    <Property Name="year" Type="int" />
+    <Property Name="crop_id" Type="int" />
+    <Property Name="sum_insured" Type="int" />
+    <Property Name="insurance_company" Type="varchar" MaxLength="20" />
+    <Property Name="premium_amount" Type="int" />
+    <Property Name="start_date" Type="date" />
+    <Property Name="end_date" Type="date" />
+    <Property Name="expiry_status" Type="bit" Nullable="false" />
+    <Property Name="insurance_approval_status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="insurance_claim">
+    <Key>
+      <PropertyRef Name="claim_id" />
+    </Key>
+    <Property Name="claim_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="policy_no" Type="int" />
+    <Property Name="date_of_loss" Type="date" />
+    <Property Name="cause_of_loss" Type="date" />
+    <Property Name="claim_date" Type="date" />
+    <Property Name="insurance_claim_approval_status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="land_details">
+    <Key>
+      <PropertyRef Name="land_id" />
+    </Key>
+    <Property Name="land_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="land_address" Type="varchar" MaxLength="255" />
+    <Property Name="area" Type="int" />
+  </EntityType>
+  <EntityType Name="transaction_history">
+    <Key>
+      <PropertyRef Name="transaction_id" />
+    </Key>
+    <Property Name="transaction_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="request_id" Type="int" />
+    <Property Name="bid_id" Type="int" />
+  </EntityType>
+  <EntityType Name="user_information">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_type" Type="bit" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="20" />
+    <Property Name="phone_no" Type="varchar" MaxLength="10" />
+    <Property Name="email_id" Type="varchar" MaxLength="20" />
+    <Property Name="password" Type="varchar" MaxLength="20" />
+    <Property Name="home_address" Type="varchar" MaxLength="255" />
+    <Property Name="account_no" Type="varchar" MaxLength="10" />
+    <Property Name="ifsc_code" Type="varchar" MaxLength="5" />
+    <Property Name="pan" Type="varchar" MaxLength="10" />
+    <Property Name="aadhar" Type="varchar" MaxLength="10" />
+    <Property Name="certificate" Type="bit" Nullable="false" />
+    <Property Name="aas" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="bid_id_fk_t6">
+    <End Role="bid_history" Type="Self.bid_history" Multiplicity="0..1" />
+    <End Role="transaction_history" Type="Self.transaction_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bid_history">
+        <PropertyRef Name="bid_id" />
+      </Principal>
+      <Dependent Role="transaction_history">
+        <PropertyRef Name="bid_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="crop_id_fk_t4">
+    <End Role="crop_information" Type="Self.crop_information" Multiplicity="0..1" />
+    <End Role="crops" Type="Self.crops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="crop_information">
+        <PropertyRef Name="crop_id" />
+      </Principal>
+      <Dependent Role="crops">
+        <PropertyRef Name="crop_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="crop_id_fk_t7">
+    <End Role="crop_information" Type="Self.crop_information" Multiplicity="0..1" />
+    <End Role="insurance" Type="Self.insurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="crop_information">
+        <PropertyRef Name="crop_id" />
+      </Principal>
+      <Dependent Role="insurance">
+        <PropertyRef Name="crop_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="land_id_fk_t7">
+    <End Role="land_details" Type="Self.land_details" Multiplicity="0..1" />
+    <End Role="insurance" Type="Self.insurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="land_details">
+        <PropertyRef Name="land_id" />
+      </Principal>
+      <Dependent Role="insurance">
+        <PropertyRef Name="land_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="policy_id_fk_t8">
+    <End Role="insurance" Type="Self.insurance" Multiplicity="0..1" />
+    <End Role="insurance_claim" Type="Self.insurance_claim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="insurance">
+        <PropertyRef Name="policy_no" />
+      </Principal>
+      <Dependent Role="insurance_claim">
+        <PropertyRef Name="policy_no" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="request_id_fk_t5">
+    <End Role="crops" Type="Self.crops" Multiplicity="0..1" />
+    <End Role="bid_history" Type="Self.bid_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="crops">
+        <PropertyRef Name="request_id" />
+      </Principal>
+      <Dependent Role="bid_history">
+        <PropertyRef Name="request_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="request_id_fk_t6">
+    <End Role="crops" Type="Self.crops" Multiplicity="0..1" />
+    <End Role="transaction_history" Type="Self.transaction_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="crops">
+        <PropertyRef Name="request_id" />
+      </Principal>
+      <Dependent Role="transaction_history">
+        <PropertyRef Name="request_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userid_fk_t2">
+    <End Role="user_information" Type="Self.user_information" Multiplicity="0..1" />
+    <End Role="land_details" Type="Self.land_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_information">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="land_details">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userid_fk_t4">
+    <End Role="user_information" Type="Self.user_information" Multiplicity="0..1" />
+    <End Role="crops" Type="Self.crops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_information">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="crops">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userid_fk_t5">
+    <End Role="user_information" Type="Self.user_information" Multiplicity="0..1" />
+    <End Role="bid_history" Type="Self.bid_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_information">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="bid_history">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userid_fk_t7">
+    <End Role="user_information" Type="Self.user_information" Multiplicity="0..1" />
+    <End Role="insurance" Type="Self.insurance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_information">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="insurance">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FarmerSchemeModelStoreContainer">
+    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bid_history" EntityType="Self.bid_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="crop_information" EntityType="Self.crop_information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="crops" EntityType="Self.crops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="insurance" EntityType="Self.insurance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="insurance_claim" EntityType="Self.insurance_claim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="land_details" EntityType="Self.land_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="transaction_history" EntityType="Self.transaction_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_information" EntityType="Self.user_information" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="bid_id_fk_t6" Association="Self.bid_id_fk_t6">
+      <End Role="bid_history" EntitySet="bid_history" />
+      <End Role="transaction_history" EntitySet="transaction_history" />
+    </AssociationSet>
+    <AssociationSet Name="crop_id_fk_t4" Association="Self.crop_id_fk_t4">
+      <End Role="crop_information" EntitySet="crop_information" />
+      <End Role="crops" EntitySet="crops" />
+    </AssociationSet>
+    <AssociationSet Name="crop_id_fk_t7" Association="Self.crop_id_fk_t7">
+      <End Role="crop_information" EntitySet="crop_information" />
+      <End Role="insurance" EntitySet="insurance" />
+    </AssociationSet>
+    <AssociationSet Name="land_id_fk_t7" Association="Self.land_id_fk_t7">
+      <End Role="land_details" EntitySet="land_details" />
+      <End Role="insurance" EntitySet="insurance" />
+    </AssociationSet>
+    <AssociationSet Name="policy_id_fk_t8" Association="Self.policy_id_fk_t8">
+      <End Role="insurance" EntitySet="insurance" />
+      <End Role="insurance_claim" EntitySet="insurance_claim" />
+    </AssociationSet>
+    <AssociationSet Name="request_id_fk_t5" Association="Self.request_id_fk_t5">
+      <End Role="crops" EntitySet="crops" />
+      <End Role="bid_history" EntitySet="bid_history" />
+    </AssociationSet>
+    <AssociationSet Name="request_id_fk_t6" Association="Self.request_id_fk_t6">
+      <End Role="crops" EntitySet="crops" />
+      <End Role="transaction_history" EntitySet="transaction_history" />
+    </AssociationSet>
+    <AssociationSet Name="userid_fk_t2" Association="Self.userid_fk_t2">
+      <End Role="user_information" EntitySet="user_information" />
+      <End Role="land_details" EntitySet="land_details" />
+    </AssociationSet>
+    <AssociationSet Name="userid_fk_t4" Association="Self.userid_fk_t4">
+      <End Role="user_information" EntitySet="user_information" />
+      <End Role="crops" EntitySet="crops" />
+    </AssociationSet>
+    <AssociationSet Name="userid_fk_t5" Association="Self.userid_fk_t5">
+      <End Role="user_information" EntitySet="user_information" />
+      <End Role="bid_history" EntitySet="bid_history" />
+    </AssociationSet>
+    <AssociationSet Name="userid_fk_t7" Association="Self.userid_fk_t7">
+      <End Role="user_information" EntitySet="user_information" />
+      <End Role="insurance" EntitySet="insurance" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
